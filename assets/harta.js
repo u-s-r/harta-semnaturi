@@ -43,7 +43,10 @@ var App = {
 
         info.update = function (props) {
             this._div.innerHTML = ( props ?
-            '<div class="infoJudet"><h1>' + props.nume + '</h1><div><b><span>Semnături:</span>' + props.signatures + '</b></div>' : '')
+            '<div class="infoJudet"><h1>' + props.nume + '</h1>'+
+            '<div><b><span>Semnături:</span>' + props.signatures + '</b></div>' +
+            '<div><b><span>Target:</span>' + props.target + '</b></div>'
+            : '')
         };
 
         info.addTo(map);
