@@ -30,7 +30,6 @@ var App = {
         map.scrollWheelZoom.disable();
 
 
-        // control that shows state info on hover
         var info = L.popup({
 			closeButton: false
 		});
@@ -112,7 +111,7 @@ var App = {
 
                 geoInfo.features[i].properties.signatures = App.judete[id].signatures;
                 geoInfo.features[i].properties.target = App.judete[id].target || 1000;
-				geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target || 1000]).padding([0.05,0]);
+				geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target || 1000]).padding([0.15,0]);
             }
         }
 
