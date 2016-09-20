@@ -8,10 +8,12 @@ var App = {
             complete: function (results) {
                 for (var i = 0, len = results.data.length; i < len; i++) {
                     var judet = results.data[i][2];
+					console.log(results.data[i]);
                     App.judete[judet] = {
-                        signatures: results.data[i][0],
-                        target: results.data[i][1]
+                        signatures: parseInt(results.data[i][0]),
+                        target: parseInt(results.data[i][1])
                     };
+					console.log(App.judete.NT);
                 }
                 App.drawMap();
             }
@@ -50,20 +52,21 @@ var App = {
 		var scale = chroma.scale(['#ffffff','#0084ff']).domain([0, 10000]);
         function getColor(prop) {
 			var color;
+			console.log(prop, prop.signatures);
 			if (prop.scale) {
-				color = prop.scale(prop.signatures).toString();
+				color = prop.scale(prop.signatures || 1).toString();
 			} else {
-				color = scale(prop.signatures).toString();
+				color = scale(prop.signatures || 1).toString();
 			}
 			return color;
         }
 
         function style(feature) {
             return {
-                weight: 1,
+                weight: 3,
                 opacity: 1,
-                color: 'white',
-                fillOpacity: 0.7,
+                color: '#0084ff',
+                fillOpacity: 1,
                 fillColor: getColor(feature.properties)
             };
         }
@@ -72,10 +75,10 @@ var App = {
             var layer = e.target;
 
 			layer.setStyle({
-				weight: 4,
+				weight: 3,
 				color: '#666',
 				dashArray: '3',
-				fillOpacity: 0.7
+				fillOpacity: 1
 			});
 
             if (!L.Browser.ie && !L.Browser.opera) {
@@ -106,7 +109,7 @@ var App = {
 
                 geoInfo.features[i].properties.signatures = App.judete[id].signatures;
                 geoInfo.features[i].properties.target = App.judete[id].target;
-				geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target]);
+				geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target || 1]);
             }
         }
 
