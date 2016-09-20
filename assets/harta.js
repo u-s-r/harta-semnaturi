@@ -28,7 +28,8 @@
 
 		// get color depending on population density value
 		function getColor(prop) {
-			var d = prop.target == 0 ? 0 : Math.floor(prop.signatures*100/prop.target);
+			//FIXME: this shows 10 times the actual intensity, s/1000/100/ later
+			var d = prop.target == 0 ? 0 : Math.floor(prop.signatures*1000/prop.target);
 			return d >	90	? '#800026' :
 			       d >	80	? '#bd0026' :
 			       d >	70	? '#e31a1c' :
