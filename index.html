@@ -3,142 +3,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Harta </title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css" />
+    <link rel="stylesheet" href="assets/harta.css" />
     <script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js"></script>
     <script type="text/javascript" src="assets/judete.js"></script>
-    <script type="text/javascript" src="assets/signatures.js"></script>
   </head>
   <body>
 
 
-	<style>
-body {margin: 0; padding: 0; background-color: #CCF}
 
-#map {min-width: 600px; height: 100%; width: 100%; position: relative; top: -19px; background-color: #CCF}
-
-body.fullMap .info.leaflet-control  {margin: 4em; }
-
-.info {padding: 6px 8px;font: 14px/16px Arial, Helvetica, sans-serif;background: white;background: rgba(255,255,255,0.8);box-shadow: 0 0 15px rgba(0,0,0,0.2);border-radius: 5px;}
-.info h4 {margin: 0 0 5px; color: #777;}
-
-.leaflet-bottom.leaflet-right{left: 0 !important; right: auto; width: 100% !important; text-align: center; font-size: 10px; }
-.leaflet-bottom.leaflet-right .info.leaflet-control {max-width: auto !important; width: 42em !important; display: inline-block;  float: none  ; background-color: #EEE; box-shadow: none; border-radius: 0; padding: 0.7ex;}
-.legend {text-align: left;line-height: 1;color: #555; font-size: 11px;}
-.legend i:before {content:' ';width: 1em; display: inline-block; position: relative; bottom: 2px;}
-.legend i { 			/*width: 18px;*/			/*height: 18px;*/			/*float: left;*/			margin-left: 9px;opacity: 0.7;}
-
-.leaflet-top.leaflet-right {max-width: 35em;}
-.info.leaflet-control { position: relative; right: 7em}
-.info.leaflet-control h1 {font-size: 1.5em; margin:4px 0 0 0 ; font-weight: normal;}
-.info.leaflet-control h5 {margin: 0;}
-.info.leaflet-control b {display: block; border-bottom: 1px dotted #999; padding: 0.5ex 0; margin: 1ex 0}
-.infoJudet span {display: inline-block; width: 9em;}
-.info.leaflet-control small {opacity: 0.8}
-
-.info.leaflet-control mark {display: block !important; border:1px solid #CCC; padding: 1ex; background-color: #C00; color: White; text-shadow: 1px 1px 1px #999;}
-
-#idleInfo {padding: 1ex; font-size: 0.9em;}
-
-.col {display: inline-block; vertical-align: top}
-	</style>
-
-<div id="map"></div>
-
-	<script type="text/javascript">
-
-		var map = L.map('map', {
-			center: [46.05, 26.5],zoomControl: false,
-			maxZoom: 7, minZoom: 7, zoom: 7
-		});
-
-
-		map.dragging.disable();
-		map.touchZoom.disable();
-		map.doubleClickZoom.disable();
-		map.scrollWheelZoom.disable();
-
-
-		// control that shows state info on hover
-		var info = L.control();
-
-		info.onAdd = function (map) {
-			this._div = L.DomUtil.create('div', 'info');
-			this.update();
-			return this._div;
-		};
-
-		info.update = function (props) {
-			this._div.innerHTML =  ( props?
-			    '<div class="infoJudet"><h1>' + props.nume + '</h1><div><b><span>Semnături:</span>' +props.signatures+'</b></div>':'')
-		};
-
-		info.addTo(map);
-
-		// get color depending on population density value
-		function getColor(nsigs) {
-			var d = Math.floor(nsigs/50);
-			return d >	90	? '#800026' :
-			       d >	80	? '#bd0026' :
-			       d >	70	? '#e31a1c' :
-			       d >	60	? '#fc4e2a' :
-			       d >	50      ? '#fd8d3c' :
-			       d >	40	? '#feb24c' :
-			       d >	30	? '#fed976' :
-			       d >	20	? '#ffeda0' :
-			                  '#ffffcc';
-		}
-
-		function style(feature) {
-			return {
-				weight: 1,
-				opacity: 1,
-				color: 'white',
-				fillOpacity: 0.7,
-				fillColor: getColor(feature.properties.signatures)
-			};
-		}
-
-		function highlightFeature(e) {
-			var layer = e.target;
-
-			layer.setStyle({
-				weight: 2,
-				color: '#666',
-				dashArray: '3',
-				fillOpacity: 0.7
-			});
-
-			if (!L.Browser.ie && !L.Browser.opera) {
-				layer.bringToFront();
-			}
-
-			info.update(layer.feature.properties);
-		}
-
-		var geojson;
-
-		function resetHighlight(e) {
-			geojson.resetStyle(e.target);
-			info.update();
-		}
-
-		function onEachFeature(feature, layer) {
-			layer.on({
-				mouseover: highlightFeature,
-				mouseout: resetHighlight
-			});
-		}
-
-
-
-		for (i = 0; i< geoInfo.features.length; i++) {
-		  geoInfo.features[i].properties.signatures = signatures[geoInfo.features[i].id]
-		}
-
-		geojson = L.geoJson(geoInfo, {
-			style: style,
-			onEachFeature: onEachFeature
-		}).addTo(map);
-
-	</script>
+	<div id="map"></div>
+    <script type="text/javascript" src="assets/signatures.js"></script>
 </body>
 </html>
