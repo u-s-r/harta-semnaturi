@@ -8,12 +8,10 @@ var App = {
             complete: function (results) {
                 for (var i = 0, len = results.data.length; i < len; i++) {
                     var judet = results.data[i][2];
-					console.log(results.data[i]);
                     App.judete[judet] = {
                         signatures: parseInt(results.data[i][0]),
                         target: parseInt(results.data[i][1])
                     };
-					console.log(App.judete.NT);
                 }
                 App.drawMap();
             }
@@ -33,26 +31,31 @@ var App = {
 
 
         // control that shows state info on hover
-        var info = L.control();
+        var info = L.popup({
+			closeButton: false
+		});
 
-        info.onAdd = function (map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this.update();
-            return this._div;
+
+        info.updateInfo = function (props, e) {
+			console.log(e);
+			if (props && e && props.nume != this._prevCounty) {
+				var bounds = e.target.getBounds()
+				this.setLatLng(L.latLng(bounds.getNorth(), bounds.getEast() - (bounds.getEast() - bounds.getWest()) / 2) );
+				this.setContent('<div class="infoJudet"><h1>' + props.nume + '</h1><div><b><span>Semnături:</span>' + props.signatures + '</b></div><div><b><span>Ținta:</span>' + props.target + "</b></div></div>");
+				if (map) {
+					info.openOn(map);
+				}
+				this._prevCounty = props.nume;
+			} else {
+				map.closePopup();
+			}
         };
 
-        info.update = function (props) {
-            this._div.innerHTML = ( props ?
-            '<div class="infoJudet"><h1>' + props.nume + '</h1><div><b><span>Semnături:</span>' + props.signatures + '</b></div>' : '')
-        };
-
-        info.addTo(map);
 
         // get color depending on population density value
 		var scale = chroma.scale(['#ffffff','#0084ff']).domain([0, 10000]);
         function getColor(prop) {
 			var color;
-			console.log(prop, prop.signatures);
 			if (prop.scale) {
 				color = prop.scale(prop.signatures || 1).toString();
 			} else {
@@ -85,7 +88,7 @@ var App = {
                 layer.bringToFront();
             }
 
-            info.update(layer.feature.properties);
+            info.updateInfo(layer.feature.properties, e);
         }
 
         var geojson;
@@ -108,8 +111,8 @@ var App = {
             if (id && App.judete.hasOwnProperty(id)) {
 
                 geoInfo.features[i].properties.signatures = App.judete[id].signatures;
-                geoInfo.features[i].properties.target = App.judete[id].target;
-				geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target || 1]);
+                geoInfo.features[i].properties.target = App.judete[id].target || 1000;
+				geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target || 1000]).padding([0.05,0]);
             }
         }
 

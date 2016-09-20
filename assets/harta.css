@@ -1,7 +1,7 @@
 
-body {margin: 0; padding: 0; background-color: #CCF}
+body {margin: 0; padding: 0; background-color: #fff;}
 
-#map {min-width: 600px; height: 100%; width: 100%; position: relative; top: -19px; background-color: #CCF}
+#map {min-width: 600px; height: 100%; width: 100%; position: relative; top: -19px; background-color: #fff}
 
 body.fullMap .info.leaflet-control  {margin: 4em; }
 
