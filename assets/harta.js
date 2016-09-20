@@ -27,8 +27,8 @@
 		info.addTo(map);
 
 		// get color depending on population density value
-		function getColor(nsigs) {
-			var d = Math.floor(nsigs/50);
+		function getColor(prop) {
+			var d = prop.target == 0 ? 0 : Math.floor(prop.signatures*100/prop.target);
 			return d >	90	? '#800026' :
 			       d >	80	? '#bd0026' :
 			       d >	70	? '#e31a1c' :
@@ -46,7 +46,7 @@
 				opacity: 1,
 				color: 'white',
 				fillOpacity: 0.7,
-				fillColor: getColor(feature.properties.signatures)
+				fillColor: getColor(feature.properties)
 			};
 		}
 
@@ -84,7 +84,11 @@
 
 
 		for (i = 0; i< geoInfo.features.length; i++) {
-		  geoInfo.features[i].properties.signatures = signatures[geoInfo.features[i].id]
+		  var f = signatures[geoInfo.features[i].id]
+		  if (f != null ) {
+		      geoInfo.features[i].properties.signatures = f[0]
+		      geoInfo.features[i].properties.target = f[1]
+	          }
 		}
 
 		geojson = L.geoJson(geoInfo, {
