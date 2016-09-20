@@ -112,7 +112,9 @@ var App = {
 
                 geoInfo.features[i].properties.signatures = App.judete[id].signatures;
                 geoInfo.features[i].properties.target = App.judete[id].target;
-				geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target || 1]);
+                //FIXME: revert 10x cheat when the numbers are higher and the map less boring.
+                //geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target || 1]);
+                geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target/10 || 1]);
             }
         }
 
