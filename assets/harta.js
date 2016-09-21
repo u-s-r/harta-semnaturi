@@ -56,14 +56,13 @@ var App = {
         };
 
 
-        // get color depending on population density value
-		var scale = chroma.scale(['#ffffff','#0084ff']).domain([0, 10000]);
+        var scale = chroma.scale(['#ffffff','#0084ff']).domain([0, 100]);
         function getColor(prop) {
 			var color;
-			if (prop.scale) {
-				color = prop.scale(prop.signatures || 1).toString();
+			if (prop.target == 0) {
+				color = "#ffffff";
 			} else {
-				color = scale(prop.signatures || 1).toString();
+				color = scale(Math.floor(prop.signatures*100/prop.target)).toString();
 			}
 			return color;
         }
@@ -116,8 +115,7 @@ var App = {
             if (id && App.judete.hasOwnProperty(id)) {
 
                 geoInfo.features[i].properties.signatures = App.judete[id].signatures;
-                geoInfo.features[i].properties.target = App.judete[id].target || 1000;
-				geoInfo.features[i].properties.scale = chroma.scale(['#ffffff','#0084ff']).domain([0, App.judete[id].target || 1000]).padding([0.15,0]);
+                geoInfo.features[i].properties.target = App.judete[id].target;
             }
         }
 
