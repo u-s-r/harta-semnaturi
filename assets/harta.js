@@ -62,7 +62,8 @@ var App = {
 			if (prop.target == 0) {
 				color = "#ffffff";
 			} else {
-				color = scale(Math.floor(prop.signatures*100/prop.target)).toString();
+                                //FIXME: s/1000/100/ later.
+				color = scale(Math.floor(prop.signatures*1000/prop.target)).toString();
 			}
 			return color;
         }
