@@ -40,7 +40,11 @@ var App = {
 			if (props && e && props.nume != this._prevCounty) {
 				var bounds = e.target.getBounds()
 				this.setLatLng(L.latLng(bounds.getNorth(), bounds.getEast() - (bounds.getEast() - bounds.getWest()) / 2) );
-				this.setContent('<div class="infoJudet"><h1>' + props.nume + '</h1><div><b><span>Semnături:</span>' + props.signatures + '</b></div><div><b><span>Ținta:</span>' + props.target + "</b></div></div>");
+				this.setContent('<div class="infoJudet"><h1>' + props.nume + '</h1>'+
+                                        '<div><b><span>Semnături:</span>' + props.signatures + '</b></div>' +
+                                        '<div><b><span>Ținta:</span>' + props.target + '</b></div>' +
+                                        '<div><b><span>Progres:</span>' + ((props.target == 0) ? 0 : Math.floor(props.signatures*100/props.target)) + '%</b></div>' +
+                                        '</div>');
 				if (map) {
 					info.openOn(map);
 				}
