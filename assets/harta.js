@@ -46,6 +46,7 @@ var App = {
 				}
 				this._prevCounty = props.nume;
 			} else {
+				this._prevCounty = "";
 				map.closePopup();
 			}
         };
@@ -94,7 +95,7 @@ var App = {
 
         function resetHighlight(e) {
             geojson.resetStyle(e.target);
-            info.update();
+            info.updateInfo();
         }
 
         function onEachFeature(feature, layer) {
