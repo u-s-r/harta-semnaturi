@@ -24,7 +24,7 @@ var App = {
         });
 
 
-        map.dragging.disable();
+        map.dragging.enable();
         map.touchZoom.disable();
         map.doubleClickZoom.disable();
         map.scrollWheelZoom.disable();
