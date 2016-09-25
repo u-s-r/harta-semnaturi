@@ -23,15 +23,18 @@ var App = {
                         target: parseInt(data[i][1])
                     };
                 }
-                App.updateStats();
+                App.updateStats(data);
                 App.drawMap();
             }
         });
     },
-    updateStats: function () {
+    updateStats: function (data) {
         var d = document.getElementById('info');
-        console.log("EX", App.total/200000);
-        d.innerHTML = '<div><b><span>Raportate la nivel național: </span></b><br>' + App.total + ' din 200.000 (' +  Math.floor(App.total/2000) + '%)</b></div>';
+        var top = '<br><h3>Top 10</h3>';
+        for (var i = 0; i < 10; i++) {
+            top += '<div><b>'+(i+1)+'. '+data[i][2]+' '+Math.floor(data[i][0]*100/data[i][1])+'%</b></div>';
+        }
+        d.innerHTML = '<div><b>Semnături raportate național:</b><br>' + App.total + ' din 200.000 (' +  Math.floor(App.total/2000) + '%)</b></div>'+top;
     },
     drawMap: function () {
         var map = L.map('map', {
