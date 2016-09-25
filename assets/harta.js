@@ -30,7 +30,7 @@ var App = {
     drawMap: function () {
         var map = L.map('map', {
             center: [46.05, 26.5], zoomControl: false,
-            maxZoom: 7, minZoom: 7, zoom: 7
+            maxZoom: 8, minZoom: 6, zoom:6.7
         });
 
 
