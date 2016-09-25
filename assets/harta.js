@@ -23,9 +23,15 @@ var App = {
                         target: parseInt(data[i][1])
                     };
                 }
+                App.updateStats();
                 App.drawMap();
             }
         });
+    },
+    updateStats: function () {
+        var d = document.getElementById('info');
+        console.log("EX", App.total/200000);
+        d.innerHTML = '<div><b><span>Raportate la nivel național: </span></b><br>' + App.total + ' din 200.000 (' +  Math.floor(App.total/2000) + '%)</b></div>';
     },
     drawMap: function () {
         var map = L.map('map', {

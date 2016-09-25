@@ -1,7 +1,12 @@
 
-body {margin: 0; padding: 0; background-color: #fff;}
+body {
+	margin: 0; padding: 0; background-color: #fff;
+	font-family:  "Helvetica", "Arial", sans-serif;
+        line-height: 1.5;
+}
 
-#map {min-width: 600px; height: 100%; width: 100%; position: relative; top: -19px; background-color: #fff}
+#map {float:left; min-width: 600px; height: 100%; width: 80%; position: relative; top: -19px; background-color: #fff}
+#info {float:left; height: 100%; width:20%; position: relative; right: 20px; background-color:#eee}
 
 body.fullMap .info.leaflet-control  {margin: 4em; }
 
