@@ -6,6 +6,9 @@ var App = {
         Papa.parse(csvurl, {
             download: true,
             complete: function (results) {
+                results.data.sort(function(a,b) {
+                    return b[0]/b[1] - a[0]/a[1];
+                });
                 for (var i = 0, len = results.data.length; i < len; i++) {
                     var judet = results.data[i][2];
                     App.judete[judet] = {
