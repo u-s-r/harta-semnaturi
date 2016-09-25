@@ -75,14 +75,13 @@ var App = {
         };
 
 
-        var scale = chroma.scale(['#ffffff','#0084ff']).domain([0, 100]);
+        var scale = chroma.scale(['red','yellow','green']).domain([0, 0.2, 1]);
         function getColor(prop) {
 			var color;
 			if (prop.target == 0) {
 				color = "#ffffff";
 			} else {
-                                //FIXME: s/1000/100/ later.
-				color = scale(Math.floor(prop.signatures*1000/prop.target)).toString();
+				color = scale(prop.signatures/prop.target).toString();
 			}
 			return color;
         }
@@ -91,7 +90,7 @@ var App = {
             return {
                 weight: 3,
                 opacity: 1,
-                color: '#0084ff',
+                color: 'grey',
                 fillOpacity: 1,
                 fillColor: getColor(feature.properties)
             };
@@ -102,7 +101,7 @@ var App = {
 
 			layer.setStyle({
 				weight: 3,
-				color: '#666',
+				color: 'red',
 				dashArray: '3',
 				fillOpacity: 1
 			});
