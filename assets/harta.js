@@ -22,7 +22,8 @@ var App = {
                     var judet = data[i][2];
                     App.judete[judet] = {
                         signatures: parseInt(data[i][0]),
-                        target: parseInt(data[i][1])
+                        target: parseInt(data[i][1]),
+                        place: i+1,
                     };
                 }
                 App.data = data;
@@ -53,7 +54,7 @@ var App = {
 			if (props && e && props.nume != this._prevCounty) {
 				var bounds = e.target.getBounds()
 				this.setLatLng(L.latLng(bounds.getNorth(), bounds.getEast() - (bounds.getEast() - bounds.getWest()) / 2) );
-				this.setContent('<div class="infoJudet"><h1>' + props.nume + '</h1>'+
+				this.setContent('<div class="infoJudet"><h1>' + props.nume + (typeof(props.place)==='undefined'?'':' (locul '+props.place+')')+'</h1>'+
                                         '<div><b><span>Semnături:</span>' + props.signatures + '</b></div>' +
                                         '<div><b><span>Ținta:</span>' + props.target + '</b></div>' +
                                         '<div><b><span>Progres:</span>' + ((props.target == 0) ? 0 : Math.floor(props.signatures*100/props.target)) + '%</b></div>' +
@@ -162,6 +163,7 @@ var App = {
 
                 geoInfo.features[i].properties.signatures = App.judete[id].signatures;
                 geoInfo.features[i].properties.target = App.judete[id].target;
+                geoInfo.features[i].properties.place = App.judete[id].place;
             }
         }
 
