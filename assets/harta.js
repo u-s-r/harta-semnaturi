@@ -3,6 +3,8 @@ var App = {
 
     total: 0,
 
+    data: [],
+
     loadCSV: function () {
         var csvurl = 'assets/data.csv';
         Papa.parse(csvurl, {
@@ -23,18 +25,10 @@ var App = {
                         target: parseInt(data[i][1])
                     };
                 }
-                App.updateStats(data);
+                App.data = data;
                 App.drawMap();
             }
         });
-    },
-    updateStats: function (data) {
-        var d = document.getElementById('stats');
-        var top = '<br><h3>Top 10</h3>';
-        for (var i = 0; i < 10; i++) {
-            top += '<div><b>'+(i+1)+'. '+data[i][2]+' '+Math.floor(data[i][0]*100/data[i][1])+'%</b></div>';
-        }
-        d.innerHTML = '<div><b>Semnături raportate național:</b><br>' + App.total + ' din 200.000 (' +  Math.floor(App.total/2000) + '%)</b></div>'+top;
     },
     drawMap: function () {
         var map = L.map('map', {
@@ -129,6 +123,18 @@ var App = {
         }
 
 
+        function updateStats (data) {
+            var d = document.getElementById('stats');
+            var top = '<br><h3>Top 10</h3>';
+            for (var i = 0; i < 10; i++) {
+                top += '<div'+
+                    //Uncomment for color background in chart.
+                    //' style="background:' + getColor(data[i][0], data[i][1]) + '"' +
+                    '><b>' + (i+1)+'. '+data[i][2]+' '+Math.floor(data[i][0]*100/data[i][1])+'%</b></div>';
+            }
+            d.innerHTML = '<div><b>Semnături raportate național:</b><br>' + App.total + ' din 200.000 (' +  Math.floor(App.total/2000) + '%)</b></div>'+top;
+        }
+
         function addLegend() {
             var legend = L.control({position: 'bottomleft'});
 
@@ -160,6 +166,7 @@ var App = {
         }
 
         addLegend();
+        updateStats(App.data);
 
         geojson = L.geoJson(geoInfo, {
             style: style,
