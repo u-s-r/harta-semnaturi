@@ -29,7 +29,7 @@ var App = {
         });
     },
     updateStats: function (data) {
-        var d = document.getElementById('info');
+        var d = document.getElementById('stats');
         var top = '<br><h3>Top 10</h3>';
         for (var i = 0; i < 10; i++) {
             top += '<div><b>'+(i+1)+'. '+data[i][2]+' '+Math.floor(data[i][0]*100/data[i][1])+'%</b></div>';
