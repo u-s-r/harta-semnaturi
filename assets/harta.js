@@ -76,12 +76,12 @@ var App = {
 
 
         var scale = chroma.scale(['red','yellow','green']).domain([0, 0.2, 1]);
-        function getColor(prop) {
+        function getColor(signatures, target) {
 			var color;
-			if (prop.target == 0) {
+			if (target == 0) {
 				color = "#ffffff";
 			} else {
-				color = scale(prop.signatures/prop.target).toString();
+				color = scale(signatures/target).toString();
 			}
 			return color;
         }
@@ -92,7 +92,7 @@ var App = {
                 opacity: 1,
                 color: 'grey',
                 fillOpacity: 1,
-                fillColor: getColor(feature.properties)
+                fillColor: getColor(feature.properties.signatures, feature.properties.target)
             };
         }
 
@@ -129,6 +129,27 @@ var App = {
         }
 
 
+        function addLegend() {
+            var legend = L.control({position: 'bottomleft'});
+
+            legend.onAdd = function (map) {
+
+                var div = L.DomUtil.create('div', 'legend'),
+                grades = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+                labels = [];
+
+                // loop through our density intervals and generate a label with a colored square for each interval
+                for (var i = 0; i < grades.length-1; i++) {
+                    div.innerHTML +=
+                        '<i style="background:' + getColor(grades[i] + 1, 100) + '"></i> ' +
+                        (grades[i] + '&ndash;' + grades[i + 1] + '%<br>');
+                }
+                return div;
+            };
+
+            legend.addTo(map);
+        }
+
         for (i = 0; i < geoInfo.features.length; i++) {
             var id = geoInfo.features[i].id;
             if (id && App.judete.hasOwnProperty(id)) {
@@ -137,6 +158,8 @@ var App = {
                 geoInfo.features[i].properties.target = App.judete[id].target;
             }
         }
+
+        addLegend();
 
         geojson = L.geoJson(geoInfo, {
             style: style,

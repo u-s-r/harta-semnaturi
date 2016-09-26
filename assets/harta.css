@@ -8,6 +8,18 @@ body {
 #map {float:left; min-width: 600px; height: 100%; width: 80%; position: relative; top: -19px; background-color: #fff}
 #info {float:left; height: 100%; width:20%; position: relative; right: 20px; background-color:#eee}
 
+.legend {
+	line-height: 18px;
+	color: #555;
+}
+.legend i {
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-right: 8px;
+	opacity: 0.7;
+}
+
 body.fullMap .info.leaflet-control  {margin: 4em; }
 
 .info {padding: 6px 8px;font: 14px/16px Arial, Helvetica, sans-serif;background: white;background: rgba(255,255,255,0.8);box-shadow: 0 0 15px rgba(0,0,0,0.2);border-radius: 5px;}
@@ -15,9 +27,6 @@ body.fullMap .info.leaflet-control  {margin: 4em; }
 
 .leaflet-bottom.leaflet-right{left: 0 !important; right: auto; width: 100% !important; text-align: center; font-size: 10px; }
 .leaflet-bottom.leaflet-right .info.leaflet-control {max-width: auto !important; width: 42em !important; display: inline-block;  float: none  ; background-color: #EEE; box-shadow: none; border-radius: 0; padding: 0.7ex;}
-.legend {text-align: left;line-height: 1;color: #555; font-size: 11px;}
-.legend i:before {content:' ';width: 1em; display: inline-block; position: relative; bottom: 2px;}
-.legend i { 			/*width: 18px;*/			/*height: 18px;*/			/*float: left;*/			margin-left: 9px;opacity: 0.7;}
 
 .leaflet-top.leaflet-right {max-width: 35em;}
 .info.leaflet-control { position: relative; right: 7em}
