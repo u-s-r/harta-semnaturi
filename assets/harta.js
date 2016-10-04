@@ -8,6 +8,7 @@ var App = {
     loadCSV: function () {
         var csvurl = 'assets/data.csv';
         Papa.parse(csvurl, {
+            skipEmptyLines: true,
             download: true,
             complete: function (results) {
                 var data = results.data
