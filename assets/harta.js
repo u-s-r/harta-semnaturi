@@ -131,7 +131,7 @@ var App = {
             for (var i = 0; i < data.length; i++) {
                 top += '<div'+
                     //Uncomment for color background in chart.
-                    //' style="background:' + getColor(data[i][0], data[i][1]) + '"' +
+                    ' style="background:' + getColor(data[i][0], data[i][1]) + '"' +
                     '><b>' + (i+1)+'. '+data[i][2]+' '+Math.floor(data[i][0]*100/data[i][1])+'%</b></div>';
             }
             top +='</div>';
