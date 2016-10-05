@@ -125,6 +125,9 @@ var App = {
         }
 
 
+        function rowStat(d) {
+            return d[2]+' '+Math.floor(d[0]*100/d[1]);
+        }
         function updateStats (data) {
             var d = document.getElementById('stats');
             var top = '<br><h3>Clasament</h3><div id="top">';
@@ -132,7 +135,7 @@ var App = {
                 top += '<div'+
                     //Uncomment for color background in chart.
                     ' style="background:' + getColor(data[i][0], data[i][1]) + '"' +
-                    '><b>' + (i+1)+'. '+data[i][2]+' '+Math.floor(data[i][0]*100/data[i][1])+'%</b></div>';
+                    '><b>' + (i+1)+'. '+rowStat(data[i])+'%</b></div>';
             }
             top +='</div>';
             d.innerHTML = '<div><b>Semnături raportate național:</b><br>' + App.total + ' din 200.000 (' +  Math.floor(App.total/2000) + '%)</b></div>'+top;
