@@ -5,8 +5,8 @@ body {
         line-height: 1.5;
 }
 
-#map {float:left; min-width: 600px; height: 100%; width: 80%; position: relative; top: -19px; background-color: #fff}
-#info {float:left; height: 100%; width:20%; position: relative; right: 20px; background-color:#eee}
+#map {float:left; min-width: 600px; height: 100%; width: 75%; position: relative; top: -19px; background-color: #fff}
+#info {float:left; height: 100%; width:25%; position: relative; right: 20px; background-color:#eee}
 
 .legend {
 	line-height: 18px;
