@@ -126,7 +126,7 @@ var App = {
 
 
         function rowStat(d) {
-            return d[2]+' '+Math.floor(d[0]*100/d[1]) + '% ('+d[0]+' din '+d[1]+')';
+            return d[2]+' '+Math.floor(d[0]*100/d[1]) + '% ('+d[0]+'/'+d[1]+')';
         }
 
         function updateStats (data) {
