@@ -12,10 +12,16 @@ var App = {
             download: true,
             complete: function (results) {
                 var data = results.data
+                for (var i = 0; i < data.length; i++) {
+                // CATCH empty strings
+                    if (!data[i][1]) {
+                        data[i][1] = 1000;
+                    }
+                }
                 data.sort(function(a,b) {
                     return b[0]/b[1] - a[0]/a[1];
                 });
-                for (var i = 0, len = data.length; i < len; i++) {
+                for (var i = 0; i < data.length; i++) {
                     var s = parseInt(data[i][0]);
                     if (!isNaN(s)) {
                         App.total += s;
